@@ -235,7 +235,7 @@ function HomeContent() {
                   <Badge className="bg-amber-500 text-white">Côte d&apos;Ivoire</Badge>
                 </div>
                 <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                  <span className="text-amber-500">OLUWATOBI CORPORATION</span>
+                  <span className="text-white">OLUWATOBI CORPORATION</span>
                   <br />
                   <span className="text-2xl md:text-3xl font-normal text-slate-300">Votre quincaillerie de confiance</span>
                 </h1>
@@ -243,11 +243,11 @@ function HomeContent() {
                   Découvrez notre large sélection d&apos;outils, matériaux et accessoires pour tous vos projets de bricolage. Livraison à Abidjan et dans tout le pays.
                 </p>
                 <div className="flex flex-wrap gap-4">
-                  <Button size="lg" className="bg-amber-500 hover:bg-amber-600" onClick={handleViewProducts}>
+                  <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white" onClick={handleViewProducts}>
                     Voir les produits
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
-                  <Button size="lg" className="bg-red-500 hover:bg-red-600 text-white" onClick={handlePromotions}>
+                  <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white" onClick={handlePromotions}>
                     <Sparkles className="mr-2 h-5 w-5" />
                     Promotions
                   </Button>
