@@ -1,0 +1,170 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model CartItem {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String?  @db.ObjectId
+  sessionId String?
+  productId String   @db.ObjectId
+  quantity  Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  Product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@unique([userId, productId])
+  @@index([sessionId])
+}
+
+model Category {
+  id             String     @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  slug           String     @unique
+  description    String?
+  image          String?
+  parentId       String?    @db.ObjectId
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  parent         Category?  @relation("CategoryToCategory", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  children       Category[] @relation("CategoryToCategory")
+  products       Product[]
+
+  @@index([parentId])
+}
+
+model Newsletter {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model Order {
+  id                 String      @id @default(auto()) @map("_id") @db.ObjectId
+  orderNumber        String      @unique
+  userId             String?     @db.ObjectId
+  status             String      @default("pending")
+  paymentStatus      String      @default("pending")
+  paymentMethod      String?
+  shippingName       String
+  shippingEmail      String
+  shippingPhone      String?
+  shippingAddress    String
+  shippingCity       String
+  shippingPostalCode String
+  subtotal           Float
+  shippingCost       Float       @default(0)
+  tax                Float       @default(0)
+  total              Float
+  notes              String?
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+  user               User?       @relation(fields: [userId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+  items              OrderItem[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model OrderItem {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  orderId   String   @db.ObjectId
+  productId String   @db.ObjectId
+  name      String
+  price     Float
+  quantity  Int
+  total     Float
+  createdAt DateTime @default(now())
+  product   Product  @relation(fields: [productId], references: [id], onDelete: NoAction, onUpdate: Cascade)
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+model Product {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  slug        String      @unique
+  description String?
+  price       Float
+  salePrice   Float?
+  sku         String      @unique
+  stock       Int         @default(0)
+  image       String?
+  images      String?
+  categoryId  String?     @db.ObjectId
+  featured    Boolean     @default(false)
+  active      Boolean     @default(true)
+  weight      Float?
+  dimensions  String?
+  brand       String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  cartItems   CartItem[]
+  orderItems  OrderItem[]
+  category    Category?   @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: Cascade)
+  reviews     Review[]
+
+  @@index([categoryId])
+  @@index([featured])
+  @@index([active])
+}
+
+model Promotion {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  code        String   @unique
+  type        String
+  value       Float
+  minOrder    Float?
+  maxDiscount Float?
+  startDate   DateTime
+  endDate     DateTime
+  active      Boolean  @default(true)
+  usageLimit  Int?
+  usageCount  Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([active])
+}
+
+model Review {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  productId String   @db.ObjectId
+  rating    Int
+  title     String?
+  comment   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@unique([userId, productId])
+  @@index([productId])
+}
+
+model User {
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  email      String     @unique
+  name       String?
+  password   String?
+  phone      String?
+  address    String?
+  city       String?
+  postalCode String?
+  role       String     @default("customer")
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  cartItems  CartItem[]
+  orders     Order[]
+  reviews    Review[]
+}
