@@ -265,7 +265,7 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
     <div className="fixed inset-0 bg-black/50 z-[100] flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl w-full max-w-6xl max-h-[90vh] flex flex-col overflow-hidden shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b shrink-0 bg-gradient-to-r from-amber-500 to-amber-600 text-white">
+        <div className="flex items-center justify-between p-4 border-b shrink-0 bg-gradient-to-r from-orange-500 to-orange-600 text-white">
           <div className="flex items-center gap-3">
             <Package className="h-6 w-6" />
             <h2 className="text-xl font-bold">Gestion des produits</h2>
@@ -273,7 +273,7 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
           <div className="flex items-center gap-3">
             <Button
               onClick={handleAddNew}
-              className="bg-white text-amber-600 hover:bg-amber-50 font-semibold shadow-md"
+              className="bg-white text-orange-600 hover:bg-orange-50 font-semibold shadow-md"
             >
               <Plus className="h-4 w-4 mr-2" />
               Ajouter un produit
@@ -330,11 +330,11 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
                         <div className="flex items-center gap-2">
                           <h3 className="font-medium truncate">{product.name}</h3>
                           {product.featured && (
-                            <Badge className="bg-amber-500 text-white text-xs">Vedette</Badge>
+                            <Badge className="bg-orange-500 text-white text-xs">Vedette</Badge>
                           )}
                         </div>
                         <div className="flex items-center gap-2 mt-1">
-                          <span className="text-amber-600 font-semibold">
+                          <span className="text-orange-600 font-semibold">
                             {formatPrice(product.salePrice || product.price)}
                           </span>
                           {product.salePrice && (
@@ -358,7 +358,7 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
                       <div className="flex items-center gap-2 shrink-0">
                         <Button
                           onClick={() => handleEdit(product)}
-                          className="bg-amber-500 hover:bg-amber-600 text-white shadow-sm"
+                          className="bg-orange-500 hover:bg-orange-600 text-white shadow-sm"
                         >
                           <Pencil className="h-4 w-4 mr-1" />
                           Modifier
@@ -534,7 +534,7 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
                             variant="outline"
                             onClick={() => fileInputRef.current?.click()}
                             disabled={uploading}
-                            className="border-amber-500 text-amber-600 hover:bg-amber-50"
+                            className="border-orange-500 text-orange-600 hover:bg-orange-50"
                           >
                             {uploading ? (
                               <>
@@ -593,7 +593,7 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
                   </div>
 
                   {/* Featured */}
-                  <div className="flex items-center gap-2 py-2 bg-amber-50 px-4 rounded-lg">
+                  <div className="flex items-center gap-2 py-2 bg-orange-50 px-4 rounded-lg">
                     <Checkbox
                       id="featured"
                       checked={formData.featured}
@@ -610,7 +610,7 @@ export default function AdminPanel({ isOpen, onClose }: AdminPanelProps) {
                   <div className="flex gap-3 pt-4 border-t">
                     <Button
                       type="submit"
-                      className="flex-1 bg-amber-500 hover:bg-amber-600 text-white font-semibold py-3"
+                      className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3"
                       disabled={saving}
                     >
                       {saving ? (

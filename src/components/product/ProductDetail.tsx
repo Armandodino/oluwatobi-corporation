@@ -77,7 +77,7 @@ export default function ProductDetail({ product, onClose }: ProductDetailProps) 
               <Link
                 href={`/?category=${product.category.id}`}
                 onClick={onClose}
-                className="text-sm text-amber-600 hover:text-amber-700 font-medium"
+                className="text-sm text-orange-600 hover:text-orange-700 font-medium"
               >
                 {product.category.name}
               </Link>
@@ -100,7 +100,7 @@ export default function ProductDetail({ product, onClose }: ProductDetailProps) 
                     <Star
                       key={i}
                       className={`h-5 w-5 ${
-                        i < Math.round(product.avgRating || 0) ? 'text-amber-400 fill-amber-400' : 'text-slate-200'
+                        i < Math.round(product.avgRating || 0) ? 'text-orange-400 fill-orange-400' : 'text-slate-200'
                       }`}
                     />
                   ))}
@@ -114,7 +114,7 @@ export default function ProductDetail({ product, onClose }: ProductDetailProps) 
             {/* Badges */}
             <div className="flex gap-2 mt-4">
               {product.featured && (
-                <Badge className="bg-amber-500 text-white">Vedette</Badge>
+                <Badge className="bg-orange-500 text-white">Vedette</Badge>
               )}
               {discount > 0 && (
                 <Badge variant="destructive">-{discount}%</Badge>
@@ -122,7 +122,7 @@ export default function ProductDetail({ product, onClose }: ProductDetailProps) 
               {product.stock <= 0 ? (
                 <Badge variant="secondary">Rupture de stock</Badge>
               ) : product.stock <= 10 ? (
-                <Badge variant="outline" className="text-amber-600 border-amber-600">
+                <Badge variant="outline" className="text-orange-600 border-orange-600">
                   Stock limité ({product.stock})
                 </Badge>
               ) : (
@@ -166,7 +166,7 @@ export default function ProductDetail({ product, onClose }: ProductDetailProps) 
               </div>
 
               <Button
-                className="flex-1 bg-amber-500 hover:bg-amber-600 text-white h-12"
+                className="flex-1 bg-orange-500 hover:bg-orange-600 text-white h-12"
                 onClick={handleAddToCart}
                 disabled={product.stock <= 0 || isAdding}
               >
@@ -178,17 +178,17 @@ export default function ProductDetail({ product, onClose }: ProductDetailProps) 
             {/* Benefits */}
             <div className="grid grid-cols-3 gap-4 mt-6 p-4 bg-slate-50 rounded-lg">
               <div className="text-center">
-                <Truck className="h-6 w-6 mx-auto text-amber-500" />
+                <Truck className="h-6 w-6 mx-auto text-orange-500" />
                 <p className="text-xs mt-1 font-medium">Livraison rapide</p>
                 <p className="text-xs text-slate-500">À Abidjan et environs</p>
               </div>
               <div className="text-center">
-                <Shield className="h-6 w-6 mx-auto text-amber-500" />
+                <Shield className="h-6 w-6 mx-auto text-orange-500" />
                 <p className="text-xs mt-1 font-medium">Qualité premium</p>
                 <p className="text-xs text-slate-500">Produits certifiés</p>
               </div>
               <div className="text-center">
-                <RotateCcw className="h-6 w-6 mx-auto text-amber-500" />
+                <RotateCcw className="h-6 w-6 mx-auto text-orange-500" />
                 <p className="text-xs mt-1 font-medium">Retour facile</p>
                 <p className="text-xs text-slate-500">30 jours</p>
               </div>
@@ -248,7 +248,7 @@ export default function ProductDetail({ product, onClose }: ProductDetailProps) 
                             <Star
                               key={i}
                               className={`h-4 w-4 ${
-                                i < review.rating ? 'text-amber-400 fill-amber-400' : 'text-slate-200'
+                                i < review.rating ? 'text-orange-400 fill-orange-400' : 'text-slate-200'
                               }`}
                             />
                           ))}

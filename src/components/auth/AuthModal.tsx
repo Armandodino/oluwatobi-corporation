@@ -152,7 +152,7 @@ export default function AuthModal({ onClose, onSuccess }: AuthModalProps) {
 
               {error && <p className="text-sm text-red-500">{error}</p>}
 
-              <Button type="submit" className="w-full bg-amber-500 hover:bg-amber-600" disabled={isLoading}>
+              <Button type="submit" className="w-full bg-orange-500 hover:bg-orange-600" disabled={isLoading}>
                 {isLoading ? (
                   <>
                     <Loader2 className="h-4 w-4 mr-2 animate-spin" />
@@ -290,7 +290,7 @@ export default function AuthModal({ onClose, onSuccess }: AuthModalProps) {
 
               {error && <p className="text-sm text-red-500">{error}</p>}
 
-              <Button type="submit" className="w-full bg-amber-500 hover:bg-amber-600" disabled={isLoading}>
+              <Button type="submit" className="w-full bg-orange-500 hover:bg-orange-600" disabled={isLoading}>
                 {isLoading ? (
                   <>
                     <Loader2 className="h-4 w-4 mr-2 animate-spin" />

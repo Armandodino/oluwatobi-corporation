@@ -169,7 +169,7 @@ OLUWATOBI CORPORATION
             Notifier l&apos;admin via WhatsApp
           </Button>
           
-          <Button onClick={onClose} className="w-full bg-amber-500 hover:bg-amber-600">
+          <Button onClick={onClose} className="w-full bg-orange-500 hover:bg-orange-600">
             Continuer mes achats
           </Button>
         </div>
@@ -198,7 +198,7 @@ OLUWATOBI CORPORATION
             <div key={s} className="flex items-center gap-2">
               <div
                 className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                  step >= s ? 'bg-amber-500 text-white' : 'bg-slate-100 text-slate-400'
+                  step >= s ? 'bg-orange-500 text-white' : 'bg-slate-100 text-slate-400'
                 }`}
               >
                 {s}
@@ -216,7 +216,7 @@ OLUWATOBI CORPORATION
             {step === 1 && (
               <div className="space-y-4">
                 <h3 className="font-semibold text-lg flex items-center gap-2">
-                  <Truck className="h-5 w-5 text-amber-500" />
+                  <Truck className="h-5 w-5 text-orange-500" />
                   Adresse de livraison
                 </h3>
 
@@ -289,7 +289,7 @@ OLUWATOBI CORPORATION
             {step === 2 && (
               <div className="space-y-4">
                 <h3 className="font-semibold text-lg flex items-center gap-2">
-                  <CreditCard className="h-5 w-5 text-amber-500" />
+                  <CreditCard className="h-5 w-5 text-orange-500" />
                   Mode de paiement
                 </h3>
 
@@ -416,7 +416,7 @@ OLUWATOBI CORPORATION
               </div>
 
               <Button
-                className="w-full mt-4 bg-amber-500 hover:bg-amber-600"
+                className="w-full mt-4 bg-orange-500 hover:bg-orange-600"
                 onClick={() => {
                   if (step < 3) {
                     setStep(step + 1);

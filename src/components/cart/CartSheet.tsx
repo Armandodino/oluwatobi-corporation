@@ -155,7 +155,7 @@ OLUWATOBI CORPORATION
           {/* Header fixe */}
           <SheetHeader className="p-4 border-b shrink-0">
             <SheetTitle className="flex items-center gap-2">
-              <ShoppingBag className="h-5 w-5 text-amber-500" />
+              <ShoppingBag className="h-5 w-5 text-orange-500" />
               Mon Panier ({items.length} article{items.length > 1 ? 's' : ''})
             </SheetTitle>
           </SheetHeader>
@@ -165,7 +165,7 @@ OLUWATOBI CORPORATION
               <ShoppingBag className="h-16 w-16 text-slate-300 mb-4" />
               <h3 className="font-semibold text-lg mb-2">Votre panier est vide</h3>
               <p className="text-slate-500 mb-4">Découvrez nos produits et ajoutez-les à votre panier</p>
-              <Button onClick={closeCart} asChild className="bg-amber-500 hover:bg-amber-600">
+              <Button onClick={closeCart} asChild className="bg-orange-500 hover:bg-orange-600">
                 <Link href="/">Voir les produits</Link>
               </Button>
             </div>
@@ -193,7 +193,7 @@ OLUWATOBI CORPORATION
                         {/* Détails du produit */}
                         <div className="flex-1 min-w-0 flex flex-col">
                           <h4 className="font-medium text-sm line-clamp-1">{item.product.name}</h4>
-                          <p className="text-amber-600 font-semibold text-sm">
+                          <p className="text-orange-600 font-semibold text-sm">
                             {formatPrice(price)}
                             {item.product.salePrice && (
                               <span className="text-slate-400 text-xs line-through ml-1">
@@ -261,7 +261,7 @@ OLUWATOBI CORPORATION
                   <Separator />
                   <div className="flex justify-between font-bold text-lg">
                     <span>Total</span>
-                    <span className="text-amber-600">{formatPrice(grandTotal)}</span>
+                    <span className="text-orange-600">{formatPrice(grandTotal)}</span>
                   </div>
                 </div>
 
@@ -372,7 +372,7 @@ OLUWATOBI CORPORATION
                     placeholder="Quartier, Rue, N° de maison, Commune..."
                     value={formData.localisation}
                     onChange={(e) => setFormData({ ...formData, localisation: e.target.value })}
-                    className="w-full pl-10 pr-4 py-2 border rounded-lg text-sm resize-none focus:outline-none focus:ring-2 focus:ring-amber-500 min-h-[80px]"
+                    className="w-full pl-10 pr-4 py-2 border rounded-lg text-sm resize-none focus:outline-none focus:ring-2 focus:ring-orange-500 min-h-[80px]"
                   />
                 </div>
               </div>
@@ -384,7 +384,7 @@ OLUWATOBI CORPORATION
                   <p>{items.length} article{items.length > 1 ? 's' : ''} dans le panier</p>
                   <div className="flex justify-between font-semibold text-sm text-slate-900">
                     <span>Total à payer:</span>
-                    <span className="text-amber-600">{formatPrice(grandTotal)}</span>
+                    <span className="text-orange-600">{formatPrice(grandTotal)}</span>
                   </div>
                 </div>
               </div>
@@ -426,7 +426,7 @@ OLUWATOBI CORPORATION
               Votre commande a été enregistrée avec succès.
             </p>
             <p className="text-sm text-slate-500 mb-6">
-              Numéro de commande: <strong className="text-amber-600">{orderNumber}</strong>
+              Numéro de commande: <strong className="text-orange-600">{orderNumber}</strong>
             </p>
             <p className="text-sm text-slate-500 mb-6">
               Vous allez être contacté via WhatsApp pour confirmer les détails de livraison.
@@ -436,7 +436,7 @@ OLUWATOBI CORPORATION
                 setOrderSuccess(false);
                 closeCart();
               }} 
-              className="bg-amber-500 hover:bg-amber-600 w-full"
+              className="bg-orange-500 hover:bg-orange-600 w-full"
             >
               Continuer mes achats
             </Button>

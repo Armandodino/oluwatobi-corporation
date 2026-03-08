@@ -301,7 +301,7 @@ export default function AdminDashboard() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-100">
         <div className="text-center">
-          <Loader2 className="h-12 w-12 animate-spin mx-auto mb-4 text-amber-500" />
+          <Loader2 className="h-12 w-12 animate-spin mx-auto mb-4 text-orange-500" />
           <p className="text-slate-600">Vérification des accès...</p>
         </div>
       </div>
@@ -350,8 +350,8 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-white rounded-xl p-6 shadow-sm border">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center">
-                <Package className="h-6 w-6 text-amber-600" />
+              <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                <Package className="h-6 w-6 text-orange-600" />
               </div>
               <div>
                 <p className="text-sm text-slate-500">Produits</p>
@@ -403,7 +403,7 @@ export default function AdminDashboard() {
                 onClick={() => setActiveTab('products')}
                 className={`px-6 py-4 font-medium transition-colors ${
                   activeTab === 'products'
-                    ? 'text-amber-600 border-b-2 border-amber-500 bg-amber-50'
+                    ? 'text-orange-600 border-b-2 border-orange-500 bg-orange-50'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -414,7 +414,7 @@ export default function AdminDashboard() {
                 onClick={() => setActiveTab('categories')}
                 className={`px-6 py-4 font-medium transition-colors ${
                   activeTab === 'categories'
-                    ? 'text-amber-600 border-b-2 border-amber-500 bg-amber-50'
+                    ? 'text-orange-600 border-b-2 border-orange-500 bg-orange-50'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -425,7 +425,7 @@ export default function AdminDashboard() {
                 onClick={() => setActiveTab('orders')}
                 className={`px-6 py-4 font-medium transition-colors ${
                   activeTab === 'orders'
-                    ? 'text-amber-600 border-b-2 border-amber-500 bg-amber-50'
+                    ? 'text-orange-600 border-b-2 border-orange-500 bg-orange-50'
                     : 'text-slate-600 hover:text-slate-900'
                 }`}
               >
@@ -446,7 +446,7 @@ export default function AdminDashboard() {
                   </p>
                   <Button
                     onClick={handleAddNew}
-                    className="bg-amber-500 hover:bg-amber-600 text-white"
+                    className="bg-orange-500 hover:bg-orange-600 text-white"
                   >
                     <Plus className="h-4 w-4 mr-2" />
                     Ajouter
@@ -476,18 +476,18 @@ export default function AdminDashboard() {
                             <div className="flex items-center gap-2">
                               <h3 className="font-medium truncate">{product.name}</h3>
                               {product.featured && (
-                                <Badge className="bg-amber-500 text-white text-xs">Vedette</Badge>
+                                <Badge className="bg-orange-500 text-white text-xs">Vedette</Badge>
                               )}
                             </div>
                             <div className="flex items-center gap-2 mt-1">
-                              <span className="text-amber-600 font-semibold">
+                              <span className="text-orange-600 font-semibold">
                                 {formatPrice(product.salePrice || product.price)}
                               </span>
                               <span className="text-xs text-slate-500">Stock: {product.stock}</span>
                             </div>
                           </div>
                           <div className="flex items-center gap-2">
-                            <Button size="sm" onClick={() => handleEdit(product)} className="bg-amber-500 hover:bg-amber-600">
+                            <Button size="sm" onClick={() => handleEdit(product)} className="bg-orange-500 hover:bg-orange-600">
                               <Pencil className="h-3 w-3" />
                             </Button>
                             <Button size="sm" variant="outline" className="text-red-500" onClick={() => handleDelete(product.id)}>
@@ -576,12 +576,12 @@ export default function AdminDashboard() {
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2 bg-amber-50 p-3 rounded-lg">
+                    <div className="flex items-center gap-2 bg-orange-50 p-3 rounded-lg">
                       <Checkbox id="featured" checked={formData.featured} onCheckedChange={(checked) => setFormData({ ...formData, featured: checked as boolean })} />
                       <Label htmlFor="featured" className="cursor-pointer">⭐ Produit vedette</Label>
                     </div>
                     <div className="flex gap-2 pt-4">
-                      <Button type="submit" className="flex-1 bg-amber-500 hover:bg-amber-600" disabled={saving}>
+                      <Button type="submit" className="flex-1 bg-orange-500 hover:bg-orange-600" disabled={saving}>
                         {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Save className="h-4 w-4 mr-2" />}
                         Enregistrer
                       </Button>

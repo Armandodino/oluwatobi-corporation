@@ -59,7 +59,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Badges */}
         <div className="absolute top-2 left-2 flex flex-col gap-1">
           {product.featured && (
-            <Badge className="bg-amber-500 text-white">Vedette</Badge>
+            <Badge className="bg-orange-500 text-white">Vedette</Badge>
           )}
           {discount > 0 && (
             <Badge variant="destructive">-{discount}%</Badge>
@@ -87,7 +87,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         {product.category && (
           <Link
             href={`/?category=${product.category.id}`}
-            className="text-xs text-amber-600 hover:text-amber-700 font-medium mb-1"
+            className="text-xs text-orange-600 hover:text-orange-700 font-medium mb-1"
             onClick={(e) => e.stopPropagation()}
           >
             {product.category.name}
@@ -95,7 +95,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         )}
 
         {/* Name */}
-        <Link href={`/?product=${product.id}`} className="font-semibold text-slate-900 line-clamp-2 hover:text-amber-600 mb-2">
+        <Link href={`/?product=${product.id}`} className="font-semibold text-slate-900 line-clamp-2 hover:text-orange-600 mb-2">
           {product.name}
         </Link>
 
@@ -112,7 +112,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 <Star
                   key={i}
                   className={`h-3.5 w-3.5 ${
-                    i < Math.round(product.avgRating || 0) ? 'text-amber-400 fill-amber-400' : 'text-slate-200'
+                    i < Math.round(product.avgRating || 0) ? 'text-orange-400 fill-orange-400' : 'text-slate-200'
                   }`}
                 />
               ))}
@@ -137,7 +137,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
 
           {product.stock > 0 && product.stock <= 10 && (
-            <p className="text-xs text-amber-600 mb-2">
+            <p className="text-xs text-orange-600 mb-2">
               Plus que {product.stock} en stock !
             </p>
           )}

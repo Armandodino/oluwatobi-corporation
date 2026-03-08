@@ -17,17 +17,17 @@ export default function Footer() {
               />
               <div className="flex flex-col">
                 <span className="text-xl font-bold text-white leading-tight">OLUWATOBI</span>
-                <span className="text-sm font-semibold text-amber-500 leading-tight">CORPORATION</span>
+                <span className="text-sm font-semibold text-orange-500 leading-tight">CORPORATION</span>
               </div>
             </div>
             <p className="text-slate-400 mb-4">
               Votre partenaire de confiance pour tous vos travaux de bricolage et rénovation en Côte d&apos;Ivoire.
             </p>
             <div className="flex gap-3">
-              <a href="#" className="p-2 bg-slate-800 rounded-full hover:bg-amber-500 transition-colors">
+              <a href="#" className="p-2 bg-slate-800 rounded-full hover:bg-orange-500 transition-colors">
                 <Facebook className="h-4 w-4" />
               </a>
-              <a href="#" className="p-2 bg-slate-800 rounded-full hover:bg-amber-500 transition-colors">
+              <a href="#" className="p-2 bg-slate-800 rounded-full hover:bg-orange-500 transition-colors">
                 <Instagram className="h-4 w-4" />
               </a>
             </div>
@@ -38,19 +38,19 @@ export default function Footer() {
             <h3 className="text-white font-semibold mb-4">Liens rapides</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/" className="hover:text-amber-500 transition-colors">Accueil</Link>
+                <Link href="/" className="hover:text-orange-500 transition-colors">Accueil</Link>
               </li>
               <li>
-                <Link href="/?category=all" className="hover:text-amber-500 transition-colors">Tous les produits</Link>
+                <Link href="/?category=all" className="hover:text-orange-500 transition-colors">Tous les produits</Link>
               </li>
               <li>
-                <Link href="/?section=promotions" className="hover:text-amber-500 transition-colors">Promotions</Link>
+                <Link href="/?section=promotions" className="hover:text-orange-500 transition-colors">Promotions</Link>
               </li>
               <li>
-                <Link href="/?section=nouveautes" className="hover:text-amber-500 transition-colors">Nouveautés</Link>
+                <Link href="/?section=nouveautes" className="hover:text-orange-500 transition-colors">Nouveautés</Link>
               </li>
               <li>
-                <Link href="/?section=conseils" className="hover:text-amber-500 transition-colors">Conseils bricolage</Link>
+                <Link href="/?section=conseils" className="hover:text-orange-500 transition-colors">Conseils bricolage</Link>
               </li>
             </ul>
           </div>
@@ -60,19 +60,19 @@ export default function Footer() {
             <h3 className="text-white font-semibold mb-4">Services</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/?section=livraison" className="hover:text-amber-500 transition-colors">Livraison à Abidjan</Link>
+                <Link href="/?section=livraison" className="hover:text-orange-500 transition-colors">Livraison à Abidjan</Link>
               </li>
               <li>
-                <Link href="/?section=retours" className="hover:text-amber-500 transition-colors">Retours & Remboursements</Link>
+                <Link href="/?section=retours" className="hover:text-orange-500 transition-colors">Retours & Remboursements</Link>
               </li>
               <li>
-                <Link href="/?section=faq" className="hover:text-amber-500 transition-colors">FAQ</Link>
+                <Link href="/?section=faq" className="hover:text-orange-500 transition-colors">FAQ</Link>
               </li>
               <li>
-                <Link href="/?section=cgv" className="hover:text-amber-500 transition-colors">CGV</Link>
+                <Link href="/?section=cgv" className="hover:text-orange-500 transition-colors">CGV</Link>
               </li>
               <li>
-                <Link href="/?section=mentions" className="hover:text-amber-500 transition-colors">Mentions légales</Link>
+                <Link href="/?section=mentions" className="hover:text-orange-500 transition-colors">Mentions légales</Link>
               </li>
             </ul>
           </div>
@@ -82,19 +82,19 @@ export default function Footer() {
             <h3 className="text-white font-semibold mb-4">Contact</h3>
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
-                <MapPin className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
+                <MapPin className="h-5 w-5 text-orange-500 shrink-0 mt-0.5" />
                 <span>Cocody, Rue des Jardins<br />Abidjan, Côte d&apos;Ivoire</span>
               </li>
               <li className="flex items-center gap-3">
-                <Phone className="h-5 w-5 text-amber-500 shrink-0" />
+                <Phone className="h-5 w-5 text-orange-500 shrink-0" />
                 <span>+225 07 15 54 14</span>
               </li>
               <li className="flex items-center gap-3">
-                <Mail className="h-5 w-5 text-amber-500 shrink-0" />
+                <Mail className="h-5 w-5 text-orange-500 shrink-0" />
                 <span>contact@oluwatobi-ci.com</span>
               </li>
               <li className="flex items-start gap-3">
-                <Clock className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
+                <Clock className="h-5 w-5 text-orange-500 shrink-0 mt-0.5" />
                 <div>
                   <p className="font-semibold text-white">Ouvert 24h/24 - 7j/7</p>
                   <p className="text-slate-400">Service disponible à tout moment</p>
@@ -112,7 +112,7 @@ export default function Footer() {
               <span>Côte d&apos;Ivoire - Livraison à Abidjan et environs</span>
             </div>
             <p className="text-slate-500 text-xs mt-2">
-              Développé par <span className="text-amber-500 font-semibold">AI&apos;vory</span>
+              Développé par <span className="text-orange-500 font-semibold">AI&apos;vory</span>
             </p>
           </div>
         </div>

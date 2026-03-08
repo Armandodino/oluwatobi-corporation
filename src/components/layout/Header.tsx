@@ -77,7 +77,7 @@ export default function Header({ onOpenAdmin, isAdmin, onLogout }: HeaderProps) 
                 Ouvert 24h/24 - 7j/7
               </span>
             </div>
-            <span className="text-amber-400 font-medium">🚚 Livraison à Abidjan et environs</span>
+            <span className="text-orange-400 font-medium">🚚 Livraison à Abidjan et environs</span>
           </div>
         </div>
 
@@ -93,7 +93,7 @@ export default function Header({ onOpenAdmin, isAdmin, onLogout }: HeaderProps) 
               />
               <div className="flex flex-col">
                 <span className="text-xl font-bold text-slate-900 leading-tight">OLUWATOBI</span>
-                <span className="text-sm font-semibold text-amber-500 leading-tight">CORPORATION</span>
+                <span className="text-sm font-semibold text-orange-500 leading-tight">CORPORATION</span>
               </div>
             </Link>
 
@@ -105,9 +105,9 @@ export default function Header({ onOpenAdmin, isAdmin, onLogout }: HeaderProps) 
                   placeholder="Rechercher un produit..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pr-12 border-2 focus:border-amber-500"
+                  className="w-full pr-12 border-2 focus:border-orange-500"
                 />
-                <Button type="submit" size="icon" className="absolute right-0 top-0 h-full bg-amber-500 hover:bg-amber-600">
+                <Button type="submit" size="icon" className="absolute right-0 top-0 h-full bg-orange-500 hover:bg-orange-600">
                   <Search className="h-4 w-4" />
                 </Button>
               </div>
@@ -135,7 +135,7 @@ export default function Header({ onOpenAdmin, isAdmin, onLogout }: HeaderProps) 
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="hidden sm:flex text-amber-600 hover:text-amber-700 hover:bg-amber-50"
+                      className="hidden sm:flex text-orange-600 hover:text-orange-700 hover:bg-orange-50"
                       title="Dashboard Admin"
                     >
                       <Settings className="h-5 w-5" />
@@ -169,7 +169,7 @@ export default function Header({ onOpenAdmin, isAdmin, onLogout }: HeaderProps) 
                 <Button variant="ghost" size="icon" className="relative" onClick={toggleCart}>
                   <ShoppingCart className="h-5 w-5" />
                   {itemCount > 0 && (
-                    <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-amber-500">
+                    <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-orange-500">
                       {itemCount}
                     </Badge>
                   )}
@@ -226,7 +226,7 @@ export default function Header({ onOpenAdmin, isAdmin, onLogout }: HeaderProps) 
                           </Link>
                           {/* Mobile: Dashboard button - link to /admin */}
                           <Link href="/admin" onClick={() => setIsMenuOpen(false)}>
-                            <Button className="w-full bg-amber-500 hover:bg-amber-600">
+                            <Button className="w-full bg-orange-500 hover:bg-orange-600">
                               <Settings className="h-4 w-4 mr-2" />
                               Dashboard Admin
                             </Button>
@@ -267,7 +267,7 @@ export default function Header({ onOpenAdmin, isAdmin, onLogout }: HeaderProps) 
                 <li key={category.id}>
                   <Link
                     href={`/?category=${category.id}`}
-                    className="px-4 py-2 rounded-md text-sm font-medium hover:bg-amber-100 hover:text-amber-700 whitespace-nowrap transition-colors"
+                    className="px-4 py-2 rounded-md text-sm font-medium hover:bg-orange-100 hover:text-orange-700 whitespace-nowrap transition-colors"
                   >
                     {category.name}
                   </Link>
