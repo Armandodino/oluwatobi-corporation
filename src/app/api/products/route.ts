@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { Prisma } from '@prisma/client';
+import { requireAdmin } from '@/lib/auth';
+import { productCreateSchema, sanitizeString } from '@/lib/validations';
 
-// GET - List products with filters
+// GET - List products with filters (public)
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
@@ -14,7 +16,7 @@ export async function GET(request: NextRequest) {
     const sort = searchParams.get('sort') || 'createdAt';
     const order = searchParams.get('order') || 'desc';
     const page = parseInt(searchParams.get('page') || '1');
-    const limit = parseInt(searchParams.get('limit') || '12');
+    const limit = Math.min(parseInt(searchParams.get('limit') || '12'), 50);
     const skip = (page - 1) * limit;
 
     const where: Prisma.ProductWhereInput = { active: true };
@@ -23,12 +25,12 @@ export async function GET(request: NextRequest) {
       where.categoryId = category;
     }
 
-    // MongoDB-compatible search (contains is case-sensitive in MongoDB)
     if (search) {
+      const sanitizedSearch = sanitizeString(search);
       where.OR = [
-        { name: { contains: search } },
-        { description: { contains: search } },
-        { brand: { contains: search } },
+        { name: { contains: sanitizedSearch } },
+        { description: { contains: sanitizedSearch } },
+        { brand: { contains: sanitizedSearch } },
       ];
     }
 
@@ -38,15 +40,15 @@ export async function GET(request: NextRequest) {
 
     if (minPrice || maxPrice) {
       const priceFilter: { gte?: number; lte?: number } = {};
-      if (minPrice) priceFilter.gte = parseFloat(minPrice);
-      if (maxPrice) priceFilter.lte = parseFloat(maxPrice);
+      if (minPrice) priceFilter.gte = Math.max(0, parseFloat(minPrice));
+      if (maxPrice) priceFilter.lte = Math.min(10000000, parseFloat(maxPrice));
       where.price = priceFilter;
     }
 
-    // Build orderBy safely for MongoDB
     const orderBy: Prisma.ProductOrderByWithRelationInput = {};
-    if (sort === 'createdAt' || sort === 'updatedAt' || sort === 'price' || sort === 'name' || sort === 'stock') {
-      orderBy[sort as keyof Prisma.ProductOrderByWithRelationInput] = order as 'asc' | 'desc';
+    const validSortFields = ['createdAt', 'updatedAt', 'price', 'name', 'stock'];
+    if (validSortFields.includes(sort)) {
+      orderBy[sort as keyof Prisma.ProductOrderByWithRelationInput] = order === 'asc' || order === 'desc' ? order : 'desc';
     } else {
       orderBy.createdAt = 'desc';
     }
@@ -99,24 +101,49 @@ export async function GET(request: NextRequest) {
 // POST - Create product (admin only)
 export async function POST(request: NextRequest) {
   try {
-    const data = await request.json();
+    const admin = await requireAdmin();
+    if (!admin) {
+      return NextResponse.json(
+        { error: 'Accès non autorisé. Connexion admin requise.' },
+        { status: 401 }
+      );
+    }
+
+    const body = await request.json();
+    
+    const validationResult = productCreateSchema.safeParse(body);
+    if (!validationResult.success) {
+      return NextResponse.json(
+        { error: 'Données invalides', details: validationResult.error.flatten() },
+        { status: 400 }
+      );
+    }
+
+    const data = validationResult.data;
+    
+    // Generate unique SKU if not provided
+    const generateSKU = () => {
+      const timestamp = Date.now().toString(36).toUpperCase();
+      const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+      return `SKU-${timestamp}-${random}`;
+    };
     
     const product = await db.product.create({
       data: {
-        name: data.name,
-        slug: data.slug || data.name.toLowerCase().replace(/\s+/g, '-'),
-        description: data.description,
-        price: parseFloat(data.price),
-        salePrice: data.salePrice ? parseFloat(data.salePrice) : null,
-        sku: data.sku,
-        stock: parseInt(data.stock) || 0,
-        image: data.image,
+        name: sanitizeString(data.name),
+        slug: data.slug || data.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
+        description: data.description ? sanitizeString(data.description) : '',
+        price: Math.max(0, parseFloat(data.price)),
+        salePrice: data.salePrice ? Math.max(0, parseFloat(data.salePrice)) : null,
+        sku: data.slug || generateSKU(),
+        stock: data.stock ? Math.max(0, parseInt(data.stock)) : 0,
+        image: data.image || '',
         images: data.images ? JSON.stringify(data.images) : null,
         categoryId: data.categoryId,
         featured: data.featured || false,
         weight: data.weight ? parseFloat(data.weight) : null,
-        dimensions: data.dimensions,
-        brand: data.brand,
+        dimensions: data.dimensions ? sanitizeString(data.dimensions) : null,
+        brand: data.brand ? sanitizeString(data.brand) : null,
       },
     });
 

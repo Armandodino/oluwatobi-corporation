@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { requireAdmin } from '@/lib/auth';
+import { categoryCreateSchema, sanitizeString } from '@/lib/validations';
 
-// GET - List all categories
+// GET - List all categories (public)
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
@@ -23,14 +25,12 @@ export async function GET(request: NextRequest) {
       },
     });
 
-    // Transform to include product count
     const categoriesWithCount = categories.map((cat) => ({
       ...cat,
       productCount: cat._count.products,
       _count: undefined,
     }));
 
-    // If withProducts, also fetch products for each category
     if (withProducts) {
       const categoriesWithProducts = await Promise.all(
         categories.map(async (cat) => {
@@ -57,18 +57,36 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST - Create category
+// POST - Create category (admin only)
 export async function POST(request: NextRequest) {
   try {
-    const data = await request.json();
+    const admin = await requireAdmin();
+    if (!admin) {
+      return NextResponse.json(
+        { error: 'Accès non autorisé. Connexion admin requise.' },
+        { status: 401 }
+      );
+    }
+
+    const body = await request.json();
+    const validationResult = categoryCreateSchema.safeParse(body);
+    
+    if (!validationResult.success) {
+      return NextResponse.json(
+        { error: 'Données invalides', details: validationResult.error.flatten() },
+        { status: 400 }
+      );
+    }
+
+    const data = validationResult.data;
 
     const category = await db.category.create({
       data: {
-        name: data.name,
-        slug: data.slug || data.name.toLowerCase().replace(/\s+/g, '-'),
-        description: data.description,
-        image: data.image,
-        parentId: data.parentId,
+        name: sanitizeString(data.name),
+        slug: data.slug || data.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
+        description: data.description ? sanitizeString(data.description) : null,
+        image: data.image || null,
+        parentId: data.parentId || null,
       },
     });
 

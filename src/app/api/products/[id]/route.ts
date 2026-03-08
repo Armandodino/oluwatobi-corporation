@@ -1,13 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { requireAdmin } from '@/lib/auth';
+import { productUpdateSchema, isValidObjectId, sanitizeString } from '@/lib/validations';
 
-// GET - Single product by ID or slug
+// GET - Single product by ID or slug (public)
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { id } = await params;
+    
+    if (!id) {
+      return NextResponse.json({ error: 'ID produit requis' }, { status: 400 });
+    }
     
     const product = await db.product.findFirst({
       where: {
@@ -42,7 +48,6 @@ export async function GET(
       ? product.reviews.reduce((sum, r) => sum + r.rating, 0) / product.reviews.length
       : 0;
 
-    // Get related products
     const relatedProducts = await db.product.findMany({
       where: {
         categoryId: product.categoryId,
@@ -63,34 +68,59 @@ export async function GET(
   }
 }
 
-// PUT - Update product
+// PUT - Update product (admin only)
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const admin = await requireAdmin();
+    if (!admin) {
+      return NextResponse.json(
+        { error: 'Accès non autorisé. Connexion admin requise.' },
+        { status: 401 }
+      );
+    }
+
     const { id } = await params;
-    const data = await request.json();
+    
+    if (!id) {
+      return NextResponse.json({ error: 'ID produit requis' }, { status: 400 });
+    }
+
+    const body = await request.json();
+    
+    const validationResult = productUpdateSchema.safeParse(body);
+    if (!validationResult.success) {
+      return NextResponse.json(
+        { error: 'Données invalides', details: validationResult.error.flatten() },
+        { status: 400 }
+      );
+    }
+
+    const data = validationResult.data;
+    
+    const updateData: Record<string, unknown> = {};
+    
+    if (data.name !== undefined) updateData.name = sanitizeString(data.name);
+    if (data.slug !== undefined) updateData.slug = sanitizeString(data.slug);
+    if (data.description !== undefined) updateData.description = data.description ? sanitizeString(data.description) : '';
+    if (data.price !== undefined) updateData.price = Math.max(0, parseFloat(data.price));
+    if (data.salePrice !== undefined) updateData.salePrice = data.salePrice ? Math.max(0, parseFloat(data.salePrice)) : null;
+    if (data.sku !== undefined) updateData.sku = data.sku ? sanitizeString(data.sku) : data.sku;
+    if (data.stock !== undefined) updateData.stock = Math.max(0, parseInt(data.stock || '0'));
+    if (data.image !== undefined) updateData.image = data.image || '';
+    if (data.images !== undefined) updateData.images = data.images ? JSON.stringify(data.images) : null;
+    if (data.categoryId !== undefined) updateData.categoryId = data.categoryId;
+    if (data.featured !== undefined) updateData.featured = data.featured;
+    if (data.weight !== undefined) updateData.weight = data.weight ? parseFloat(data.weight) : null;
+    if (data.dimensions !== undefined) updateData.dimensions = data.dimensions ? sanitizeString(data.dimensions) : null;
+    if (data.brand !== undefined) updateData.brand = data.brand ? sanitizeString(data.brand) : null;
+    if (data.active !== undefined) updateData.active = data.active;
 
     const product = await db.product.update({
       where: { id },
-      data: {
-        name: data.name,
-        slug: data.slug,
-        description: data.description,
-        price: data.price ? parseFloat(data.price) : undefined,
-        salePrice: data.salePrice ? parseFloat(data.salePrice) : null,
-        sku: data.sku,
-        stock: data.stock !== undefined ? parseInt(data.stock) : undefined,
-        image: data.image,
-        images: data.images ? JSON.stringify(data.images) : null,
-        categoryId: data.categoryId,
-        featured: data.featured,
-        active: data.active,
-        weight: data.weight ? parseFloat(data.weight) : null,
-        dimensions: data.dimensions,
-        brand: data.brand,
-      },
+      data: updateData,
     });
 
     return NextResponse.json(product);
@@ -100,13 +130,25 @@ export async function PUT(
   }
 }
 
-// DELETE - Delete product
+// DELETE - Soft delete product (admin only)
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const admin = await requireAdmin();
+    if (!admin) {
+      return NextResponse.json(
+        { error: 'Accès non autorisé. Connexion admin requise.' },
+        { status: 401 }
+      );
+    }
+
     const { id } = await params;
+    
+    if (!id) {
+      return NextResponse.json({ error: 'ID produit requis' }, { status: 400 });
+    }
 
     await db.product.update({
       where: { id },
