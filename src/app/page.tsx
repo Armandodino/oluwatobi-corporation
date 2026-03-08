@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { ArrowRight, Truck, Shield, CreditCard, HeadphonesIcon, Sparkles, TrendingUp } from 'lucide-react';
+import { ArrowRight, Truck, Shield, CreditCard, HeadphonesIcon, Sparkles, TrendingUp, Check } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ProductGrid from '@/components/product/ProductGrid';
@@ -226,22 +226,63 @@ function HomeContent() {
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
-                <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center gap-3 mb-6">
                   <img 
                     src="/logo.jpeg" 
                     alt="OLUWATOBI CORPORATION" 
                     className="h-16 w-16 rounded-xl object-cover shadow-lg"
                   />
-                  <Badge className="bg-orange-500 text-white">Côte d&apos;Ivoire</Badge>
                 </div>
+                
+                {/* Tagline */}
+                <p className="text-orange-500 text-lg font-semibold mb-2 tracking-wide">
+                  La référence qui bâtit l&apos;avenir.
+                </p>
+                
+                {/* Main Title */}
                 <h1 className="text-4xl md:text-5xl font-bold mb-4">
                   <span className="text-white">OLUWATOBI CORPORATION</span>
-                  <br />
-                  <span className="text-2xl md:text-3xl font-normal text-slate-300">Votre quincaillerie de confiance</span>
                 </h1>
-                <p className="text-lg text-slate-300 mb-8">
-                  Découvrez notre large sélection d&apos;outils, matériaux et accessoires pour tous vos projets de bricolage. Livraison à Abidjan et dans tout le pays.
+                
+                {/* Description */}
+                <p className="text-lg text-slate-300 mb-6">
+                  Votre quincaillerie professionnelle de confiance. Nous vous proposons des outils, matériaux et équipements de qualité pour tous vos projets.
                 </p>
+
+                {/* Bullet Points */}
+                <div className="space-y-3 mb-8">
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-orange-500/20 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-4 h-4 text-orange-500" />
+                    </div>
+                    <span className="text-slate-200">Produits fiables et durables</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-orange-500/20 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-4 h-4 text-orange-500" />
+                    </div>
+                    <span className="text-slate-200">Prix compétitifs</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-orange-500/20 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-4 h-4 text-orange-500" />
+                    </div>
+                    <span className="text-slate-200">Livraison rapide à Abidjan et partout en Côte d&apos;Ivoire</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-orange-500/20 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-4 h-4 text-orange-500" />
+                    </div>
+                    <span className="text-slate-200">Service professionnel et réactif</span>
+                  </div>
+                </div>
+
+                {/* Slogan */}
+                <p className="text-xl font-semibold text-orange-500 mb-8">
+                  Construisez avec confiance. Construisez avec Oluwatobi Corporation.
+                </p>
+
+                {/* Buttons */}
                 <div className="flex flex-wrap gap-4">
                   <Button size="lg" className="bg-orange-500 hover:bg-orange-600" onClick={handleViewProducts}>
                     Voir les produits
