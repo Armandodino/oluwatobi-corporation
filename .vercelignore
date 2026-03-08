@@ -1,0 +1,7 @@
+examples/
+skills/
+mini-services/
+download/
+upload/
+*.log
+dev.log

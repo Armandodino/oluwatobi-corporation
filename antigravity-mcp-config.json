@@ -1,0 +1,95 @@
+{
+  "name": "Z.AI GLM-5 MCP Configuration",
+  "description": "Configuration MCP pour intégrer Z.AI GLM-5 dans Google Antigravity",
+  "version": "1.0.0",
+  "setup": {
+    "step1": "Obtenez votre clé API sur https://open.bigmodel.cn/",
+    "step2": "Dans Google Antigravity, allez dans les paramètres MCP",
+    "step3": "Ajoutez une nouvelle configuration de serveur MCP",
+    "step4": "Copiez la configuration ci-dessous"
+  },
+  "mcpServers": {
+    "z-ai-glm5": {
+      "command": "npx",
+      "args": ["-y", "@anthropic-ai/mcp-server-zai"],
+      "env": {
+        "Z_AI_API_KEY": "VOTRE_CLE_API_ICI",
+        "Z_AI_BASE_URL": "https://open.bigmodel.cn/api/paas/v4",
+        "Z_AI_MODEL": "glm-5"
+      }
+    }
+  },
+  "alternative_http_config": {
+    "endpoint": "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer VOTRE_CLE_API_ICI"
+    },
+    "default_payload": {
+      "model": "glm-5",
+      "messages": [],
+      "temperature": 1.0,
+      "top_p": 0.95,
+      "stream": false
+    }
+  },
+  "example_requests": {
+    "simple_chat": {
+      "model": "glm-5",
+      "messages": [
+        {"role": "user", "content": "Bonjour, comment puis-je vous aider?"}
+      ]
+    },
+    "with_thinking": {
+      "model": "glm-5",
+      "messages": [
+        {"role": "user", "content": "Résolvez ce problème complexe..."}
+      ],
+      "thinking": {"type": "enabled"}
+    },
+    "with_tools": {
+      "model": "glm-5",
+      "messages": [
+        {"role": "user", "content": "Quel temps fait-il à Paris?"}
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_weather",
+            "description": "Obtenir la météo pour une ville",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "location": {"type": "string"}
+              },
+              "required": ["location"]
+            }
+          }
+        }
+      ],
+      "stream": true,
+      "tool_stream": true
+    }
+  },
+  "capabilities": {
+    "max_context": "200K tokens",
+    "max_output": "128K tokens",
+    "features": [
+      "Chat completion",
+      "Streaming responses",
+      "Tool calling (function calling)",
+      "Streaming tool calls",
+      "Deep thinking mode",
+      "Vision capabilities"
+    ]
+  },
+  "pricing": {
+    "info": "Consultez https://open.bigmodel.cn/pricing pour les tarifs actuels"
+  },
+  "support": {
+    "documentation": "https://docs.z.ai/",
+    "api_reference": "https://docs.z.ai/api-reference/introduction",
+    "technical_support": "https://z.ai/consultation"
+  }
+}
