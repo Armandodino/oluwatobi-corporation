@@ -2,6 +2,23 @@ import { NextRequest, NextResponse } from 'next/server';
 import { writeFile, mkdir } from 'fs/promises';
 import { existsSync } from 'fs';
 import path from 'path';
+import { v2 as cloudinary } from 'cloudinary';
+
+// Check if Cloudinary is configured
+const isCloudinaryConfigured = 
+  process.env.CLOUDINARY_CLOUD_NAME && 
+  process.env.CLOUDINARY_API_KEY && 
+  process.env.CLOUDINARY_API_SECRET &&
+  process.env.CLOUDINARY_CLOUD_NAME !== 'votre_cloud_name';
+
+// Configure Cloudinary if available
+if (isCloudinaryConfigured) {
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -28,7 +45,30 @@ export async function POST(request: NextRequest) {
       }, { status: 400 });
     }
 
-    // Create uploads directory if it doesn't exist
+    // Convert file to buffer
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+
+    // Use Cloudinary if configured (for production/Vercel)
+    if (isCloudinaryConfigured) {
+      const base64Image = `data:${file.type};base64,${buffer.toString('base64')}`;
+
+      const result = await cloudinary.uploader.upload(base64Image, {
+        folder: 'oluwatobi-products',
+        transformation: [
+          { width: 800, height: 800, crop: 'limit' },
+          { quality: 'auto:good' }
+        ]
+      });
+
+      return NextResponse.json({ 
+        success: true, 
+        url: result.secure_url,
+        publicId: result.public_id 
+      });
+    }
+
+    // Fallback to local storage (for development)
     const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'products');
     if (!existsSync(uploadDir)) {
       await mkdir(uploadDir, { recursive: true });
@@ -41,9 +81,7 @@ export async function POST(request: NextRequest) {
     const filename = `${timestamp}-${randomString}.${extension}`;
     const filepath = path.join(uploadDir, filename);
 
-    // Convert file to buffer and save
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    // Save file locally
     await writeFile(filepath, buffer);
 
     // Return the public URL
