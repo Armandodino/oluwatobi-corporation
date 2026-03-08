@@ -37,6 +37,31 @@ export async function GET(
   }
 }
 
+// PATCH - Update order status (partial update)
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params;
+    const data = await request.json();
+
+    const updateData: Record<string, unknown> = {};
+    if (data.status) updateData.status = data.status;
+    if (data.paymentStatus) updateData.paymentStatus = data.paymentStatus;
+
+    const order = await db.order.update({
+      where: { id },
+      data: updateData,
+    });
+
+    return NextResponse.json(order);
+  } catch (error) {
+    console.error('Error updating order:', error);
+    return NextResponse.json({ error: 'Erreur lors de la mise à jour de la commande' }, { status: 500 });
+  }
+}
+
 // PUT - Update order status
 export async function PUT(
   request: NextRequest,
