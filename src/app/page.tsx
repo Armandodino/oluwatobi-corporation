@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { ArrowRight, Truck, Shield, CreditCard, HeadphonesIcon, Sparkles, TrendingUp } from 'lucide-react';
+import { ArrowRight, Truck, Shield, CreditCard, HeadphonesIcon, Sparkles, TrendingUp, Check } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ProductGrid from '@/components/product/ProductGrid';
@@ -226,24 +226,65 @@ function HomeContent() {
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
-                <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center gap-3 mb-6">
                   <img 
                     src="/logo.jpeg" 
                     alt="OLUWATOBI CORPORATION" 
                     className="h-16 w-16 rounded-xl object-cover shadow-lg"
                   />
-                  <Badge className="bg-amber-500 text-white">Côte d&apos;Ivoire</Badge>
                 </div>
-                <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                
+                {/* Main Title */}
+                <h1 className="text-4xl md:text-5xl font-bold mb-2">
                   <span className="text-white">OLUWATOBI CORPORATION</span>
-                  <br />
-                  <span className="text-2xl md:text-3xl font-normal text-slate-300">Votre quincaillerie de confiance</span>
                 </h1>
-                <p className="text-lg text-slate-300 mb-8">
-                  Découvrez notre large sélection d&apos;outils, matériaux et accessoires pour tous vos projets de bricolage. Livraison à Abidjan et dans tout le pays.
+                
+                {/* Tagline - Orange */}
+                <p className="text-orange-500 text-xl font-semibold mb-4 tracking-wide">
+                  La référence qui bâtit l&apos;avenir.
                 </p>
+                
+                {/* Description */}
+                <p className="text-lg text-slate-300 mb-6">
+                  Votre quincaillerie professionnelle de confiance. Nous vous proposons des outils, matériaux et équipements de qualité pour tous vos projets.
+                </p>
+
+                {/* Bullet Points */}
+                <div className="space-y-3 mb-8">
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-orange-500/20 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-4 h-4 text-orange-500" />
+                    </div>
+                    <span className="text-slate-200">Produits fiables et durables</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-orange-500/20 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-4 h-4 text-orange-500" />
+                    </div>
+                    <span className="text-slate-200">Prix compétitifs</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-orange-500/20 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-4 h-4 text-orange-500" />
+                    </div>
+                    <span className="text-slate-200">Livraison rapide à Abidjan et partout en Côte d&apos;Ivoire</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-orange-500/20 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-4 h-4 text-orange-500" />
+                    </div>
+                    <span className="text-slate-200">Service professionnel et réactif</span>
+                  </div>
+                </div>
+
+                {/* Slogan */}
+                <p className="text-xl font-semibold text-orange-500 mb-8">
+                  Construisez avec confiance. Construisez avec Oluwatobi Corporation.
+                </p>
+
+                {/* Buttons */}
                 <div className="flex flex-wrap gap-4">
-                  <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white" onClick={handleViewProducts}>
+                  <Button size="lg" className="bg-orange-500 hover:bg-orange-600" onClick={handleViewProducts}>
                     Voir les produits
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
@@ -254,15 +295,12 @@ function HomeContent() {
                 </div>
               </div>
               <div className="hidden md:flex justify-center">
-                <div className="relative">
-                  <div className="w-64 h-64 bg-amber-500 rounded-full opacity-20 absolute -top-4 -right-4" />
-                  <div className="w-72 h-72 bg-slate-700 rounded-2xl flex items-center justify-center relative overflow-hidden">
-                    <img 
-                      src="/logo.jpeg" 
-                      alt="OLUWATOBI CORPORATION" 
-                      className="w-48 h-48 object-cover rounded-xl shadow-2xl"
-                    />
-                  </div>
+                <div className="w-72 h-72 bg-slate-700 rounded-2xl flex items-center justify-center overflow-hidden">
+                  <img 
+                    src="/logo.jpeg" 
+                    alt="OLUWATOBI CORPORATION" 
+                    className="w-48 h-48 object-cover rounded-xl shadow-2xl"
+                  />
                 </div>
               </div>
             </div>
@@ -274,28 +312,28 @@ function HomeContent() {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
               <div className="flex items-center gap-3">
-                <Truck className="h-8 w-8 text-amber-500 shrink-0" />
+                <Truck className="h-8 w-8 text-orange-500 shrink-0" />
                 <div>
                   <p className="font-semibold text-sm">Livraison Abidjan</p>
                   <p className="text-xs text-slate-500">Rapide et fiable</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <Shield className="h-8 w-8 text-amber-500 shrink-0" />
+                <Shield className="h-8 w-8 text-orange-500 shrink-0" />
                 <div>
                   <p className="font-semibold text-sm">Qualité premium</p>
                   <p className="text-xs text-slate-500">Produits certifiés</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <CreditCard className="h-8 w-8 text-amber-500 shrink-0" />
+                <CreditCard className="h-8 w-8 text-orange-500 shrink-0" />
                 <div>
                   <p className="font-semibold text-sm">Paiement sécurisé</p>
                   <p className="text-xs text-slate-500">Mobile Money, Carte, Cash</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <HeadphonesIcon className="h-8 w-8 text-amber-500 shrink-0" />
+                <HeadphonesIcon className="h-8 w-8 text-orange-500 shrink-0" />
                 <div>
                   <p className="font-semibold text-sm">Service client</p>
                   <p className="text-xs text-slate-500">+225 07 15 54 14</p>
@@ -315,7 +353,7 @@ function HomeContent() {
                   onClick={() => handleCategorySelect(null)}
                   className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
                     !selectedCategory 
-                      ? 'bg-amber-500 text-white shadow-md' 
+                      ? 'bg-orange-500 text-white shadow-md' 
                       : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                   }`}
                 >
@@ -327,7 +365,7 @@ function HomeContent() {
                     onClick={() => handleCategorySelect(category.id)}
                     className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
                       selectedCategory === category.id 
-                        ? 'bg-amber-500 text-white shadow-md' 
+                        ? 'bg-orange-500 text-white shadow-md' 
                         : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                     }`}
                   >
@@ -361,12 +399,12 @@ function HomeContent() {
             {selectedCategory && (
               <div className="mb-4 flex items-center gap-2">
                 <span className="text-slate-600">Catégorie active:</span>
-                <span className="bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm font-medium">
+                <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">
                   {categories.find((c) => c.id === selectedCategory)?.name}
                 </span>
                 <button 
                   onClick={() => setSelectedCategory(null)}
-                  className="text-sm text-amber-600 hover:text-amber-700 underline"
+                  className="text-sm text-orange-600 hover:text-orange-700 underline"
                 >
                   Effacer le filtre
                 </button>
@@ -379,7 +417,7 @@ function HomeContent() {
                 <div className="bg-white rounded-xl p-6 shadow-sm sticky top-24">
                   <div className="flex items-center justify-between mb-6">
                     <h3 className="font-semibold text-lg">Filtres</h3>
-                    <Button variant="ghost" size="sm" onClick={clearFilters} className="text-amber-600">
+                    <Button variant="ghost" size="sm" onClick={clearFilters} className="text-orange-600">
                       Réinitialiser
                     </Button>
                   </div>
@@ -549,14 +587,14 @@ function HomeContent() {
                   onClick={() => handleCategoryCardClick(category.id)}
                   className={`rounded-xl p-6 text-center transition-all group border-2 ${
                     selectedCategory === category.id 
-                      ? 'bg-amber-50 border-amber-500 shadow-lg' 
-                      : 'bg-slate-50 border-transparent hover:border-amber-300 hover:shadow-md'
+                      ? 'bg-orange-50 border-orange-500 shadow-lg' 
+                      : 'bg-slate-50 border-transparent hover:border-orange-300 hover:shadow-md'
                   }`}
                 >
                   <div className={`w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3 transition-colors ${
                     selectedCategory === category.id 
-                      ? 'bg-amber-500 text-white' 
-                      : 'bg-amber-100 group-hover:bg-amber-200 text-amber-600'
+                      ? 'bg-orange-500 text-white' 
+                      : 'bg-orange-100 group-hover:bg-orange-200 text-orange-600'
                   }`}>
                     <TrendingUp className="h-6 w-6" />
                   </div>
@@ -569,19 +607,19 @@ function HomeContent() {
         </section>
 
         {/* Newsletter */}
-        <section className="py-16 bg-amber-500">
+        <section className="py-16 bg-orange-500">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-2xl font-bold text-white mb-4">
               Restez informé de nos offres
             </h2>
-            <p className="text-amber-100 mb-6">
+            <p className="text-orange-100 mb-6">
               Inscrivez-vous à notre newsletter pour recevoir nos promotions exclusives
             </p>
             <div className="flex max-w-md mx-auto gap-2">
               <input
                 type="email"
                 placeholder="Votre email"
-                className="flex-1 px-4 py-3 rounded-lg border-0 focus:ring-2 focus:ring-amber-300"
+                className="flex-1 px-4 py-3 rounded-lg border-0 focus:ring-2 focus:ring-orange-300"
               />
               <Button className="bg-slate-900 hover:bg-slate-800 text-white">
                 S&apos;inscrire
