@@ -295,13 +295,11 @@ function HomeContent() {
                 </div>
               </div>
               <div className="hidden md:flex justify-center">
-                <div className="w-72 h-72 bg-slate-700 rounded-2xl flex items-center justify-center overflow-hidden">
-                  <img 
-                    src="/logo.jpeg" 
-                    alt="OLUWATOBI CORPORATION" 
-                    className="w-48 h-48 object-cover rounded-xl shadow-2xl"
-                  />
-                </div>
+                <img 
+                  src="/logo.jpeg" 
+                  alt="OLUWATOBI CORPORATION" 
+                  className="w-64 h-64 object-cover rounded-2xl shadow-2xl"
+                />
               </div>
             </div>
           </div>
